@@ -17,10 +17,9 @@ pipeline {
                 script {
                     // Create a virtual environment
                     sh 'python3 -m venv venv'
-                    // Activate the virtual environment and install dependencies
+                    // Activate the virtual environment and install dependencies using bash
                     sh '''
-                        source venv/bin/activate
-                        pip install -r requirements.txt
+                        bash -c "source venv/bin/activate && pip install -r requirements.txt"
                     '''
                 }
             }
@@ -29,10 +28,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Activate the virtual environment and run tests
+                    // Activate the virtual environment and run tests using bash
                     sh '''
-                        source venv/bin/activate
-                        pytest test_app.py
+                        bash -c "source venv/bin/activate && pytest test_app.py"
                     '''
                 }
             }
@@ -44,10 +42,8 @@ pipeline {
                     // Deployment logic here
                     echo 'Deploying the application...'
                     // Example: Starting the application with Gunicorn
-                    // Ensure you have Gunicorn or similar server installed
                     sh '''
-                        source venv/bin/activate
-                        gunicorn -w 4 -b 0.0.0.0:5000 app:app &
+                        bash -c "source venv/bin/activate && gunicorn -w 4 -b 0.0.0.0:5000 app:app &"
                     '''
                 }
             }
