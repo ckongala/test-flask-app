@@ -1,4 +1,4 @@
-#This is Flask app.py file
+#This is Flask app.py file, main file for the project.
 from flask import Flask
 app = Flask(__name__)
 @app.route('/')
